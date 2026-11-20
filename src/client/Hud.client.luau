@@ -68,7 +68,7 @@ local function panel(parent: Instance, size: UDim2, position: UDim2, anchor: Vec
 end
 
 -- Title and rebirth rank (top left, clear of Roblox's menu buttons)
-local titlePanel = panel(gui, UDim2.fromOffset(300, 92), UDim2.fromOffset(190, 16))
+local titlePanel = panel(gui, UDim2.fromOffset(260, 92), UDim2.fromOffset(190, 16))
 newLabel(titlePanel, "CHEESE TIDE RUSH", UDim2.new(1, -20, 0, 44), UDim2.fromOffset(10, 4), Color3.fromRGB(255, 215, 60))
 local rankLabel = newLabel(titlePanel, "Dock Rookie  x1", UDim2.new(1, -20, 0, 34), UDim2.fromOffset(10, 50), Color3.fromRGB(255, 255, 255))
 
