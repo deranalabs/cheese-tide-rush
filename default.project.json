@@ -39,7 +39,8 @@
     },
     "SoundService": {
       "$properties": {
-        "RespectFilteringEnabled": true
+        "RespectFilteringEnabled": true,
+        "AmbientReverb": "NoReverb"
       }
     }
   }
