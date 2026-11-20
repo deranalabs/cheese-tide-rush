@@ -89,7 +89,7 @@ local function pickTarget()
 	return best
 end
 
-local function walkTo(model: Model, goal: Vector3, shouldStop: () -> boolean): boolean
+local function walkTo(model: Model, goal: Vector3, speed: number, shouldStop: () -> boolean): boolean
 	while true do
 		local pivot = model:GetPivot()
 		local flat = Vector3.new(goal.X, pivot.Position.Y, goal.Z)
@@ -101,7 +101,7 @@ local function walkTo(model: Model, goal: Vector3, shouldStop: () -> boolean): b
 			return false
 		end
 		local dt = task.wait()
-		local step = math.min(delta.Magnitude, Config.RAIDER_SPEED * dt)
+		local step = math.min(delta.Magnitude, speed * dt)
 		local nextPos = pivot.Position + delta.Unit * step
 		model:PivotTo(CFrame.lookAt(nextPos, nextPos + delta.Unit))
 	end
@@ -125,8 +125,9 @@ local function runRaid(target)
 	prompt.ActionText = "Bonk!"
 	prompt.ObjectText = "Night Gull Raider"
 	prompt.HoldDuration = 0
-	prompt.KeyboardKeyCode = Enum.KeyCode.E
-	prompt.MaxActivationDistance = 12
+	prompt.KeyboardKeyCode = Enum.KeyCode.B -- its own key, so a nearby lock button never hides it
+	prompt.Exclusivity = Enum.ProximityPromptExclusivity.AlwaysShow
+	prompt.MaxActivationDistance = 16
 	prompt.RequiresLineOfSight = false
 	prompt.Parent = model.PrimaryPart
 	prompt.Triggered:Connect(function(player)
@@ -146,7 +147,7 @@ local function runRaid(target)
 	local function stopApproach()
 		return bonked or Steal.isLocked(owner) or ownerState.placed[target.slot] ~= target.unit or not owner.Parent
 	end
-	local arrived = walkTo(model, (slotCF * CFrame.new(0, 0, 3.5)).Position, stopApproach)
+	local arrived = walkTo(model, (slotCF * CFrame.new(0, 0, 3.5)).Position, Config.RAIDER_SPEED, stopApproach)
 	if arrived and not stopApproach() then
 		status.Text = "SNATCHING " .. targetName .. "..."
 		local waited = 0
@@ -170,7 +171,7 @@ local function runRaid(target)
 				task.wait()
 			end
 		end)
-		walkTo(model, escapePoint, function()
+		walkTo(model, escapePoint, Config.RAIDER_SPEED * 0.6, function() -- loot is heavy: a chase is fair
 			return bonked
 		end)
 		task.cancel(carry)
@@ -191,7 +192,7 @@ local function runRaid(target)
 	end
 	status.Text = if bonked then "OUCH! *flees*" else "SQUAWK!"
 	prompt:Destroy()
-	walkTo(model, escapePoint, function()
+	walkTo(model, escapePoint, Config.RAIDER_SPEED * 1.5, function()
 		return false
 	end)
 	model:Destroy()
