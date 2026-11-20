@@ -17,6 +17,7 @@ local Market = {}
 local rng = Random.new()
 local belt = {}
 local beltFolder: Folder
+local spawnCount = 0 -- alternates label levels so neighbours on the lane never overlap
 
 local FACING = CFrame.Angles(0, math.rad(-90), 0) -- walk along +X with the face forward
 
@@ -59,6 +60,11 @@ local function spawnOnBelt()
 	local model = BrainrotFactory.build(castIndex, mutation)
 	local price = Cast.priceOf(castIndex, mutation)
 	BrainrotFactory.setPrice(model, price)
+	spawnCount += 1
+	local label = model:FindFirstChild("Label", true)
+	if label then
+		label:SetAttribute("Level", spawnCount % 2)
+	end
 	local entry = { castIndex = castIndex, mutation = mutation, model = model, price = price, x = Config.LANE_START_X }
 	local prompt = Instance.new("ProximityPrompt")
 	prompt.Name = "BuyPrompt"

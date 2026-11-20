@@ -153,11 +153,13 @@ local function addBillboard(model: Model, head: BasePart, def, mutation: string?
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Label"
 	gui.Adornee = head
-	gui.Size = UDim2.new(4.4, 80, 2, 36) -- grows up close, never shrinks below a readable size
+	gui.Size = UDim2.new(4.4, 80, 2, 36) -- the WorldLabels client resizes, staggers and fades it every frame
 	gui.StudsOffsetWorldSpace = Vector3.new(0, 2.4 * s + 1.6, 0)
 	gui:SetAttribute("BaseOffset", gui.StudsOffsetWorldSpace)
-	gui.MaxDistance = 110
+	gui:SetAttribute("Level", 0) -- stagger level set by whoever places the character (slot or belt order)
+	gui.MaxDistance = 140
 	gui.LightInfluence = 0
+	CollectionService:AddTag(gui, "CastLabel")
 	local layout = Instance.new("UIListLayout")
 	layout.SortOrder = Enum.SortOrder.LayoutOrder
 	layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
