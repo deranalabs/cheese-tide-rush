@@ -1,0 +1,7 @@
+out/
+*.rbxl.lock
+*.rbxlx.lock
+.DS_Store
+.vscode/
+.idea/
+sourcemap.json
