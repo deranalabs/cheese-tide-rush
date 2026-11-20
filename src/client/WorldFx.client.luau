@@ -25,7 +25,7 @@ tint.Parent = gui
 
 local banner = Instance.new("TextLabel")
 banner.Size = UDim2.new(0.8, 0, 0, 90)
-banner.Position = UDim2.new(0.5, 0, 0, 150)
+banner.Position = UDim2.new(0.5, 0, 0.36, 0)
 banner.AnchorPoint = Vector2.new(0.5, 0)
 banner.BackgroundColor3 = Color3.fromRGB(200, 20, 40)
 banner.BackgroundTransparency = 0.1

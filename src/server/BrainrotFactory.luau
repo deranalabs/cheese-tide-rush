@@ -153,8 +153,9 @@ local function addBillboard(model: Model, head: BasePart, def, mutation: string?
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Label"
 	gui.Adornee = head
-	gui.Size = UDim2.fromScale(9, 3.6)
+	gui.Size = UDim2.fromScale(7.4, 3.3)
 	gui.StudsOffsetWorldSpace = Vector3.new(0, 2.4 * s + 1.6, 0)
+	gui:SetAttribute("BaseOffset", gui.StudsOffsetWorldSpace)
 	gui.MaxDistance = 110
 	gui.LightInfluence = 0
 	local layout = Instance.new("UIListLayout")

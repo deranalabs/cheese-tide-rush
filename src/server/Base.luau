@@ -81,6 +81,11 @@ function Base.placeUnit(player: Player, unit, slot: number)
 	state.placed[slot] = unit
 	unit.model:PivotTo(plot.slots[slot])
 	unit.model.Parent = workspace
+	-- neighbouring labels sit at alternating heights so names never overlap
+	local label = unit.model:FindFirstChild("Label", true)
+	if label then
+		label.StudsOffsetWorldSpace = label:GetAttribute("BaseOffset") + Vector3.new(0, if slot % 2 == 0 then 1.6 else 0, 0)
+	end
 	local root = unit.model.PrimaryPart
 	local old = root:FindFirstChild("StealPrompt")
 	if old then

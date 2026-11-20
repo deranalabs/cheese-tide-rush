@@ -35,7 +35,7 @@ local function buildWall(): Model
 		part.Parent = model
 		return part
 	end
-	local core = slab(Vector3.new(8, 22, 160), CFrame.new(0, 11, 0), CHEESE, 0.05, Enum.Material.Neon)
+	local core = slab(Vector3.new(8, 22, 160), CFrame.new(0, 11, 0), CHEESE, 0.12, Enum.Material.Neon)
 	model.PrimaryPart = core
 	slab(Vector3.new(14, 30, 166), CFrame.new(-2, 13, 0), Color3.fromRGB(255, 240, 120), 0.7, Enum.Material.ForceField)
 	-- cheese holes and a foamy crest
@@ -57,8 +57,8 @@ local function buildWall(): Model
 	spray.Parent = core
 	local light = Instance.new("PointLight")
 	light.Color = CHEESE
-	light.Range = 40
-	light.Brightness = 4
+	light.Range = 30
+	light.Brightness = 1.5
 	light.Parent = core
 	model:PivotTo(HIDDEN)
 	model.Parent = workspace

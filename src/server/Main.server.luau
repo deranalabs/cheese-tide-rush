@@ -10,6 +10,7 @@ local Server = script.Parent
 local PlayerState = require(Server.PlayerState)
 local WorldBuilder = require(Server.WorldBuilder)
 local Base = require(Server.Base)
+local BrainrotFactory = require(Server.BrainrotFactory)
 local Carry = require(Server.Carry)
 local Market = require(Server.Market)
 local Economy = require(Server.Economy)
@@ -127,6 +128,13 @@ local function createPlayTestHook()
 			return Raider.raidNow()
 		elseif action == "tide" then
 			task.spawn(Tide.sweep)
+		elseif action == "place" then
+			local state = PlayerState.get(player)
+			local slot = Base.freeSlot(state)
+			if slot then
+				local model = BrainrotFactory.build(value.castIndex, value.mutation)
+				Base.placeUnit(player, PlayerState.newUnit(value.castIndex, value.mutation, model), slot)
+			end
 		elseif action == "summary" then
 			local state = PlayerState.get(player)
 			local placed = {}

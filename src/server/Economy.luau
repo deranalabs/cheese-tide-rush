@@ -9,6 +9,8 @@ local Base = require(script.Parent.Base)
 
 local Economy = {}
 
+local lastCollectToast: { [Player]: number } = {}
+
 local function isStandingOnPad(player: Player, plot): boolean
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
@@ -29,7 +31,10 @@ local function tickIncome()
 			local amount = state.padCash
 			state.padCash = 0
 			PlayerState.addCash(player, amount)
-			Net.toast(player, "Collected " .. Format.money(amount) .. "!", "cash")
+			if os.clock() - (lastCollectToast[player] or 0) > 8 then
+				lastCollectToast[player] = os.clock()
+				Net.toast(player, "Collected " .. Format.money(amount) .. "!", "cash")
+			end
 		end
 		plot.cashText.Text = Format.money(state.padCash) .. "\n+" .. Format.rate(income)
 		if income > 0 then

@@ -190,7 +190,7 @@ local function buildPlot(world: Folder, index: number)
 	folder.Name = "Plot" .. index
 	folder.Parent = world
 	local floorTop = size.Y
-	block(folder, "Platform", size, cf * CFrame.new(0, size.Y / 2, 0), Color3.fromRGB(45, 35, 60), Enum.Material.Slate)
+	block(folder, "Platform", size, cf * CFrame.new(0, size.Y / 2, 0), Color3.fromRGB(95, 75, 125), Enum.Material.Slate)
 	for _, x in { -size.X / 2, size.X / 2 } do
 		block(folder, "Edge", Vector3.new(0.6, 0.5, size.Z), cf * CFrame.new(x, floorTop, 0), color, Enum.Material.Neon)
 	end
