@@ -85,10 +85,11 @@ function Base.placeUnit(player: Player, unit, slot: number)
 	state.placed[slot] = unit
 	unit.model:PivotTo(plot.slots[slot])
 	unit.model.Parent = workspace
-	-- neighbours alternate label levels and the back row sits one level higher, so names never overlap
+	-- neighbours alternate label levels and the back row sits two levels higher (perspective pulls distant
+	-- labels down), so names never overlap
 	local label = unit.model:FindFirstChild("Label", true)
 	if label then
-		label:SetAttribute("Level", ((slot - 1) % 5) % 2 + (if slot > 5 then 1 else 0))
+		label:SetAttribute("Level", ((slot - 1) % 5) % 2 + (if slot > 5 then 2 else 0))
 	end
 	local root = unit.model.PrimaryPart
 	local old = root:FindFirstChild("StealPrompt")
