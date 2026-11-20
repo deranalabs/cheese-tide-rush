@@ -1,4 +1,6 @@
 -- Config: every tuning constant of Cheese Tide Rush in one place.
+-- Exposes a plain table of numbers, colours and upgrade/rebirth tables; it lives in Shared but today only server modules read it.
+-- Holds data only: the formulas and rules that use these values live in the server modules.
 
 local Config = {}
 

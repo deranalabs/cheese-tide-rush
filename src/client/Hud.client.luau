@@ -1,4 +1,6 @@
 -- Hud: draws cash, income, carried brainrots, upgrade and rebirth buttons and toasts from server snapshots.
+-- A client script with no exports: it listens to the StateSync and Toast events and its buttons fire Request to the server.
+-- Leaves every rule, price and validation to the server; it only displays snapshots and forwards button presses.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")

@@ -1,4 +1,6 @@
 -- Steal: grabbing an unlocked brainrot from another base, and the timed laser-gate lock that defends a base.
+-- Exposes lockDuration, isLocked, tryLock and start (which wires the lock prompts, the steal handler and the lock-board refresh).
+-- Leaves slot storage and plot visuals to Base, carrying the loot home to Carry, and saved state to PlayerState.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")

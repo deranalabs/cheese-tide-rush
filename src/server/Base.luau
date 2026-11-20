@@ -1,4 +1,6 @@
 -- Base: plot ownership, safe-zone checks, slot placement and the laser-gate visuals of each base.
+-- Exposes assign/release, plotOf, isInsidePlot/isInsideAnyPlot, freeSlot, placeUnit/takeUnit/clearUnits, refreshSlots and setLockVisual.
+-- Leaves building the plots to whoever calls init, the steal rules and lock timing to Steal (via setStealHandler), and saved state to PlayerState.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")

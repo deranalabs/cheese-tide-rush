@@ -1,4 +1,6 @@
 -- Input: keyboard shortcuts (L locks the base) and hides steal prompts on the player's own brainrots.
+-- A client script with no exports: it binds the LockBase action and fires Request("Lock") to the server.
+-- Leaves lock timing and the real steal check to the server (Steal also refuses self-steals); hiding prompts is cosmetic only.
 
 local Players = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")

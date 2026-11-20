@@ -1,4 +1,6 @@
 -- Tide: every 45-60 s a glowing wall of neon cheese sweeps the harbour; anyone caught off a base loses what they carry.
+-- Exposes sweep and start; it sets the TideState/TideNextAt workspace attributes and fires TideWarning to clients.
+-- Leaves removing carried units to Carry, safe-zone checks and spawn points to Base, and the siren sound and banner to the client.
 
 local RunService = game:GetService("RunService")
 local CollectionService = game:GetService("CollectionService")

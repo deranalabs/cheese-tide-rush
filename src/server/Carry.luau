@@ -1,4 +1,6 @@
 -- Carry: brainrots a player has bought or stolen follow them home and drop into free slots on arrival.
+-- Exposes give, dropAll and start (a Heartbeat loop that moves carried units behind their carrier).
+-- Leaves deciding when units are lost to its callers (such as Tide), and slot placement and plot geometry to Base.
 
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
