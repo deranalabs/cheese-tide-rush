@@ -77,7 +77,7 @@ function Style.hazard(parent: Instance, size: UDim2, position: UDim2, accent: Co
 	strip.Position = position
 	strip.BackgroundColor3 = Style.HAZARD_DARK
 	strip.BorderSizePixel = 0
-	for i = 0, 40 do
+	for i = 0, 70 do
 		local stripe = Instance.new("Frame")
 		stripe.Size = UDim2.new(0, 9, 4, 0)
 		stripe.AnchorPoint = Vector2.new(0.5, 0.5)

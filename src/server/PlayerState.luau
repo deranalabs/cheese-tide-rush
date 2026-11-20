@@ -24,6 +24,7 @@ function PlayerState.create(player: Player, plotIndex: number)
 		carried = {}, -- array of units following the player
 		lockedUntil = 0,
 		lockReadyAt = 0,
+		found = {}, -- [castIndex] = true once the player has bought or placed that character (kept through rebirth)
 		dirty = true,
 	}
 	states[player] = state
@@ -112,6 +113,14 @@ function PlayerState.lockStatus(state): (string, number)
 	return "ready", 0
 end
 
+-- Records a character in the player's ledger; the next snapshot carries it to the client.
+function PlayerState.markFound(state, castIndex: number)
+	if not state.found[castIndex] then
+		state.found[castIndex] = true
+		state.dirty = true
+	end
+end
+
 -- What the client is allowed to know: plain numbers and strings, never instances.
 function PlayerState.snapshot(state, extras)
 	local lockStatus, lockLeft = PlayerState.lockStatus(state)
@@ -119,6 +128,11 @@ function PlayerState.snapshot(state, extras)
 	for _, unit in state.carried do
 		table.insert(carried, Cast.displayName(unit.castIndex, unit.mutation))
 	end
+	local found = {}
+	for castIndex in state.found do
+		table.insert(found, castIndex)
+	end
+	table.sort(found)
 	return {
 		cash = state.cash,
 		padCash = state.padCash,
@@ -129,6 +143,7 @@ function PlayerState.snapshot(state, extras)
 		slots = state.slots,
 		used = PlayerState.usedSlots(state),
 		carried = carried,
+		found = found, -- sorted cast indices in the player's ledger
 		levels = state.levels,
 		lockStatus = lockStatus,
 		lockLeft = math.ceil(lockLeft),

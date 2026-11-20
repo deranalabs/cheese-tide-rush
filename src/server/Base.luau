@@ -83,6 +83,7 @@ function Base.placeUnit(player: Player, unit, slot: number)
 	local state = PlayerState.get(player)
 	local plot = plots[state.plotIndex]
 	state.placed[slot] = unit
+	PlayerState.markFound(state, unit.castIndex)
 	unit.model:PivotTo(plot.slots[slot])
 	unit.model.Parent = workspace
 	-- neighbours alternate label levels and the back row sits two levels higher (perspective pulls distant
