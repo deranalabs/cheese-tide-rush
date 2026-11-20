@@ -198,16 +198,25 @@ local function runRaid(target)
 	model:Destroy()
 end
 
+Raider.NAME = "Night Gull Raider"
+
+-- Runs one raid and publishes the raider's name on workspace attribute "RaiderName" while it is active.
+local function raid(target)
+	workspace:SetAttribute("RaiderName", Raider.NAME)
+	local ok, err = pcall(runRaid, target)
+	workspace:SetAttribute("RaiderName", nil)
+	if not ok then
+		warn("Raid failed: " .. tostring(err))
+	end
+end
+
 function Raider.start()
 	task.spawn(function()
 		while true do
 			task.wait(rng:NextNumber(Config.RAIDER_MIN_GAP, Config.RAIDER_MAX_GAP))
 			local target = pickTarget()
 			if target then
-				local ok, err = pcall(runRaid, target)
-				if not ok then
-					warn("Raid failed: " .. tostring(err))
-				end
+				raid(target)
 			end
 		end
 	end)
@@ -217,7 +226,7 @@ end
 function Raider.raidNow()
 	local target = pickTarget()
 	if target then
-		task.spawn(runRaid, target)
+		task.spawn(raid, target)
 	end
 	return target ~= nil
 end

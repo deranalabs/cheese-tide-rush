@@ -67,8 +67,8 @@ local function panel(parent: Instance, size: UDim2, position: UDim2, anchor: Vec
 	return frame
 end
 
--- Title and rebirth rank (top left)
-local titlePanel = panel(gui, UDim2.fromOffset(300, 92), UDim2.fromOffset(16, 16))
+-- Title and rebirth rank (top left, clear of Roblox's menu buttons)
+local titlePanel = panel(gui, UDim2.fromOffset(300, 92), UDim2.fromOffset(190, 16))
 newLabel(titlePanel, "CHEESE TIDE RUSH", UDim2.new(1, -20, 0, 44), UDim2.fromOffset(10, 4), Color3.fromRGB(255, 215, 60))
 local rankLabel = newLabel(titlePanel, "Dock Rookie  x1", UDim2.new(1, -20, 0, 34), UDim2.fromOffset(10, 50), Color3.fromRGB(255, 255, 255))
 
@@ -78,7 +78,7 @@ local cashLabel = newLabel(cashPanel, "$0", UDim2.new(1, -20, 0, 58), UDim2.from
 local incomeLabel = newLabel(cashPanel, "+$0/s", UDim2.new(1, -20, 0, 36), UDim2.fromOffset(10, 62), Color3.fromRGB(255, 255, 255))
 
 -- Carried brainrots and slot count (left)
-local carryPanel = panel(gui, UDim2.fromOffset(300, 120), UDim2.fromOffset(16, 120))
+local carryPanel = panel(gui, UDim2.fromOffset(300, 120), UDim2.fromOffset(190, 120))
 local slotsLabel = newLabel(carryPanel, "Base 0/6", UDim2.new(1, -20, 0, 34), UDim2.fromOffset(10, 6), Color3.fromRGB(255, 215, 60))
 local carryLabel = newLabel(carryPanel, "Buy brainrots on the lane!", UDim2.new(1, -20, 0, 70), UDim2.fromOffset(10, 42), Color3.fromRGB(255, 255, 255))
 carryLabel.TextWrapped = true
@@ -135,7 +135,7 @@ button("Rebirth", Color3.fromRGB(240, 60, 180), function() request:FireServer("R
 -- Toasts (centre, stacked)
 local toastHolder = Instance.new("Frame")
 toastHolder.Size = UDim2.fromOffset(640, 260)
-toastHolder.Position = UDim2.new(0.5, 0, 1, -100)
+toastHolder.Position = UDim2.new(0.5, 0, 1, -160)
 toastHolder.AnchorPoint = Vector2.new(0.5, 1)
 toastHolder.BackgroundTransparency = 1
 toastHolder.Parent = gui
