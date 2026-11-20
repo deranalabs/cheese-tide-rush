@@ -50,12 +50,37 @@ fitBanner()
 local phase = "calm"
 local warnEndsAt = 0
 
+-- Engine-bundled sounds only (no uploaded assets): a two-tone siren beep and a splash.
+local function makeSound(id: string, volume: number): Sound
+	local sound = Instance.new("Sound")
+	sound.SoundId = id
+	sound.Volume = volume
+	sound.Parent = gui
+	return sound
+end
+local sirenBeep = makeSound("rbxasset://sounds/volume_slider.ogg", 1)
+local splash = makeSound("rbxasset://sounds/impact_water.mp3", 1)
+
+local function playSiren()
+	task.spawn(function()
+		local tone = 0
+		while phase == "warn" do
+			tone = 1 - tone
+			sirenBeep.PlaybackSpeed = if tone == 1 then 0.8 else 1.15
+			sirenBeep:Play()
+			task.wait(0.3)
+		end
+	end)
+end
+
 local function onTideWarning(newPhase: string, seconds: number)
 	phase = newPhase
 	if newPhase == "warn" then
 		warnEndsAt = os.clock() + seconds
 		banner.Visible = true
+		playSiren()
 	elseif newPhase == "sweep" then
+		splash:Play()
 		banner.Visible = true
 		banner.Text = "THE CHEESE TIDE IS HERE! STAY ON A BASE!"
 	else
