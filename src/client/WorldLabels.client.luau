@@ -1,6 +1,7 @@
 -- WorldLabels: keeps the text floating in the world legible in a crowd.
 -- Character labels (tag "CastLabel") get a distance-aware size with an on-screen minimum, a stagger height from
 -- their "Level" attribute that always clears the label below, and a fade past FADE_START.
+-- The local player's own dock sign reads "YOUR DOCK"; the server stays the only source of the owner's name.
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -49,3 +50,22 @@ RunService.RenderStepped:Connect(function()
 		end
 	end
 end)
+
+-- Own dock sign: the server writes "<NAME>'S DOCK" and stamps OwnerUserId; the owner sees "YOUR DOCK".
+local function watchSign(label: Instance)
+	if not label:IsA("TextLabel") or not label.Parent or not label.Parent.Parent or label.Parent.Parent.Name ~= "OwnerSign" then
+		return
+	end
+	local function apply()
+		if label:GetAttribute("OwnerUserId") == player.UserId and label.Text ~= "YOUR DOCK" then
+			label.Text = "YOUR DOCK"
+		end
+	end
+	label:GetAttributeChangedSignal("OwnerUserId"):Connect(apply)
+	label:GetPropertyChangedSignal("Text"):Connect(apply)
+	apply()
+end
+for _, item in workspace:GetDescendants() do
+	watchSign(item)
+end
+workspace.DescendantAdded:Connect(watchSign)

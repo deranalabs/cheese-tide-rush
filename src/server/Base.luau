@@ -26,6 +26,7 @@ function Base.assign(player: Player)
 		if not plot.owner then
 			plot.owner = player
 			plot.signText.Text = string.upper(player.DisplayName) .. "'S DOCK"
+			plot.signText:SetAttribute("OwnerUserId", player.UserId) -- the owner's own client shows "YOUR DOCK"
 			return plot
 		end
 	end
@@ -37,6 +38,7 @@ function Base.release(player: Player)
 		if plot.owner == player then
 			plot.owner = nil
 			plot.signText.Text = "EMPTY DOCK"
+			plot.signText:SetAttribute("OwnerUserId", nil)
 			plot.cashText.Text = "$0"
 			Base.setLockVisual(plot, false)
 		end
